@@ -1,6 +1,37 @@
+def is_int(value):
+    try:
+        unused = int(value)
+        return True
+    except ValueError:
+        return False
+        
+def is_float(value):
+    try:
+        unused = float(value)
+        return True
+    except ValueError:
+        return False
+
+
 def audit_file(filename, fields):
     fieldtypes = {}
-
+    with open(filename,'rb')as f:
+        reader=csv.DictReader(f)
+        for not_important in xrange(0,3):
+            reader.next()
+        for row in reader:
+            for f in row:
+                value=row[f]
+                if value == 'NULL' or value == "":
+                    value_type = type(None)
+                elif len(value) > 0 and value[0] == '{':
+                    value_type = type([])
+                elif is_int(value):
+                    value_type = type(1)   
+                elif is_float(value):
+                    value_type = type(1.1)
+                fieldtypes.setdefault(f, set())
+                fieldtypes[f].add(value_type)
     # YOUR CODE HERE
 
 
