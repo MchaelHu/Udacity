@@ -1,0 +1,12 @@
+def extract_data(page):
+    data = {"eventvalidation": "",
+            "viewstate": ""}
+    with open(page, "r") as html:
+        soup = BeautifulSoup(html, "lxml")
+        ev = soup.find(id="__EVENTVALIDATION")
+        data["eventvalidation"] = ev["value"]
+
+        vs = soup.find(id="__VIEWSTATE")
+        data["viewstate"] = vs["value"]
+
+    return data
