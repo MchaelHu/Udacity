@@ -1,0 +1,15 @@
+def significant_digits(x):
+    return len(x.split('e+')[0]) - 1
+
+def fix_area(area):
+
+    # YOUR CODE HERE
+    if area == 'NULL' or area == '':
+        return None
+    if area[0] == '{':
+        areas = [x for x in area[1:-1].split('|')]
+        sig_digits = [(significant_digits(x), x) for x in areas]
+        most_sig_digits = max(sig_digits)
+        return float(most_sig_digits[1])
+    else:
+        return float(area)
