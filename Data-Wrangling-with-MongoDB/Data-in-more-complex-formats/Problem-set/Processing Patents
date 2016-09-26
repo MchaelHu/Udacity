@@ -1,0 +1,30 @@
+def outfile_generator(filename):
+    n = -1
+    while True:
+        n += 1
+        yield open('{0}-{1}'.format(filename,n), 'w')
+
+def split_file(filename):
+    
+    """
+    Split the input file into separate files, each containing a single patent.
+    As a hint - each patent declaration starts with the same line that was
+    causing the error found in the previous exercises.
+    
+    The new files should be saved with filename in the following format:
+    "{}-{}".format(filename, n) where n is a counter, starting from 0.
+    """
+    # the pattern on which the file is split
+    pat = '<?xml'
+    
+    # an iterator for the filename
+    outfile_iterator = outfile_generator(filename)
+    
+    with open(filename) as infile:
+        for line in infile:
+            # new file
+            if pat in line:
+                outfile = next(outfile_iterator)
+                
+            # write the line
+            outfile.write(line)
