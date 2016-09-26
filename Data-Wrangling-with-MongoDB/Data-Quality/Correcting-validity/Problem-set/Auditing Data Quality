@@ -1,0 +1,7 @@
+def audit_file(filename, fields):
+    fieldtypes = {}
+
+    # YOUR CODE HERE
+
+
+    return fieldtypes
